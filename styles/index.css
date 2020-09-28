@@ -1,9 +1,15 @@
 
 body{
-    /* background: url("images/resize.png");
+    background: url("images/resize.png");
     background-attachment: fixed;
     background-repeat: no-repeat; 
-    background-size: cover; */
+    background-size: cover;
+}
+
+
+.login{
+    
+    background: red;
 }
 
 #top-container{
@@ -121,7 +127,7 @@ body{
          width:45px;
          border-radius: 4px;
          border-style:solid;
-         border-width: 1px;
+         border-width: 3px;
          border-color: #2e161d;
          float: right;
          justify-content: baseline;
@@ -242,7 +248,7 @@ body{
             position: relative;
             border-style: solid;
             border-color: #5b2337;
-            border-width: 1px;
+            border-width: 2px;
             font-family: 'Dancing Script', cursive;
             color:#5b2337;
             padding: 40px;

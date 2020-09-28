@@ -4,6 +4,8 @@ let navContainer=document.getElementById('top-container')
 let navBarSection=document.getElementById('nav-bar')
 let navBarUl=document.getElementById('nav-ul')
 let mainContainer=document.getElementById('main-container')
+let body=document.querySelector('body')
+
 
 let mainHeading=document.createElement('h2')
 mainHeading.className="side-label"
@@ -12,14 +14,16 @@ leftCard.className="card-info"
 let mainObj={}
 let globalNav=undefined
 let itemId={}
-
 let rightSide=document.getElementById('side-bar')
- 
+
+
 
 
 //create li for nav bar
 //append to container
 //create click event
+
+
 
 fetch('http://localhost:5000/categories')
 .then(resp => resp.json())
@@ -45,10 +49,6 @@ fetch('http://localhost:5000/categories')
       
         })
     }
-
-   
-
-
 
     //create category elements and append
  let renderCategoryList= (cat) => {
@@ -116,25 +116,25 @@ fetch('http://localhost:5000/categories')
 
 
             //form to create a new collection_board
-            let renderForm=(item)=> {
-                 itemId=item.id
-                      mainContainer.innerHTML=""
-                     let form=document.createElement('form')
-                     getCollectionNames()
-                     form.className="form-container"
-                     let heading=document.createElement('h3')
-                     heading.innerText="Create New Collection"
-                     let inputField=document.createElement('input')
-                     inputField.placeholder="Name Your Collection"
-                     inputField.type="text"
+     let renderForm=(item)=> {
+         itemId=item.id
+          mainContainer.innerHTML=""
+         let form=document.createElement('form')
+          getCollectionNames()
+        form.className="form-container"
+         let heading=document.createElement('h3')
+         heading.innerText="Create New Collection"
+          let inputField=document.createElement('input')
+          inputField.placeholder="Name Your Collection"
+          inputField.type="text"
   
-                     let submitButton=document.createElement('BUTTON')
-                     submitButton.className="btn"
-                     submitButton.type="submit"
-                     submitButton.innerText="Create!"
-                     form.append(heading, inputField, submitButton)
+         let submitButton=document.createElement('BUTTON')           
+           submitButton.className="btn"
+          submitButton.type="submit"
+         submitButton.innerText="Create!"
+         form.append(heading, inputField, submitButton)
                    
-                    mainContainer.append(form)
+         mainContainer.append(form)
                 
          form.addEventListener("submit", (evt) => {
                  evt.preventDefault()
@@ -166,7 +166,7 @@ fetch('http://localhost:5000/categories')
                         buttonAndItem.append(sideLabel)
                          rightSide.append(buttonAndItem)
                       
-                       
+                         item.collection_board_id=collection.id
                       collection.items.forEach(item => {
                         let categName=document.createElement('h5')
                         categName.className="categ-name"
@@ -175,26 +175,33 @@ fetch('http://localhost:5000/categories')
                             buttonAndItem.append(categName)
 
                             rightSide.append(buttonAndItem)
-                        
-                            
-
                             let deleteButton=document.createElement('BUTTON')
-                        
                             deleteButton.type="submit"
                             deleteButton.innerText="REMOVE"
                             buttonAndItem.append(deleteButton)
                             rightSide.append(buttonAndItem)
-                         
-                            item.collection_board_id=collection.id
-                          })
+                          
+                           
+                            deleteButton.addEventListener('click', (evt) => {
+                                debugger;
+                                fetch(`http://localhost:5000/collection_boards/${collection.id}`, {
+                                    method: 'DELETE'
+                                })
+                                buttonAndItem.remove()
+                           })
+                            
+                
+                            })
+                        })
                         
                      })
                      
 
-                 })
+                 }
                 }
+    
                 
-            }
+            
 
       
    
