@@ -9,12 +9,14 @@ leftCard=document.createElement('div')
 leftCard.className="card-info"
 let mainObj={}
 let globalNav=undefined
-let cardDiv=""
-let title=""
-let descrip=""
-let address=""
-let url=""
-let image =""
+let itemId={}
+
+let rightSide=document.createElement('div')
+rightSide.id="side-bar"
+let sideLabel=document.createElement('h2')
+sideLabel.className="side-label"
+let categName=document.createElement('h3')
+categName.className="categ-name"
 
 //create li for nav bar
 //append to container
@@ -35,6 +37,7 @@ fetch('http://localhost:5000/categories')
      navButton=document.createElement('li')
      navButton.innerText=cat.name
      navBarUl.append(navButton)
+     navBarSection.append(navBarUl)
      globalNav=navButton
      navButton.addEventListener("click",(evt) => {
          mainCategory(cat)
@@ -48,6 +51,7 @@ fetch('http://localhost:5000/categories')
     mainContainer.append(mainHeading)
     title=document.createElement("h2")
           category.items.forEach(item => {
+            itemId=item.id
              mainContainer.HTML=""
              cardDiv=document.createElement('div')
             cardDiv.className="card"
@@ -76,9 +80,139 @@ fetch('http://localhost:5000/categories')
               mainContainer.append(cardDiv)
               cardDiv.append(url)
               mainContainer.append(cardDiv)
+        
+        
+              let button=document.createElement('span')
+              button.innerText="Pin This Item!"
+             cardDiv.append(button)
+             cardDiv.addEventListener("click", (e) =>{
+            //   console.log(button, item)
+         renderForm(item)
+             })
+            })
 
- })
-}
+            let renderForm=(item)=> {
+               itemId=item.id
+            mainContainer.innerHTML=""
+                     let form=document.createElement('form')
+                     form.className="form-container"
+                     let heading=document.createElement('h3')
+                     heading.innerText="Create New Collection"
+                     let inputField=document.createElement('input')
+                     inputField.placeholder="Name Your Collection"
+                     inputField.type="text"
+                     inputField.className="input"
+                     let submitButton=document.createElement('BUTTON')
+                     submitButton.className="btn"
+                     submitButton.type="submit"
+                     form.append(heading, inputField, submitButton)
+                   
+                    mainContainer.append(form)
+                
+             form.addEventListener("submit", (evt) => {
+                 evt.preventDefault()
+                 let name=document.querySelector('input').value
+                
+                 fetch('http://localhost:5000/collection_boards', {
+                     method:'POST', 
+                     headers: {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json'
+                     },
+                     body: JSON.stringify({
+                         name: name,
+                
+                         item_id: itemId,
+                         user_id: 1
+                        
+                     })
+                     })
+                     .then(resp => resp.json())
+                     .then(collection => {
+                         console.log(collection)
+                        // let li=document.createElement('li')
+                        // li.innerText=collection.name
+                        //  rightSide.append(li)
+                        //  mainContainer.append(rightSide)
+                     })
+                     
+
+                 })
+                }
+                
+            }
+           
+
+//     let renderForm=(item)=> {
+//            mainContainer.innerHTML=""
+//          let formDiv=document.createElement('div')
+//          formDiv.className="form-popup"
+//          let form=document.createElement('form')
+//          form.className="form-container"
+//          let heading=document.createElement('h3')
+//          heading.innerText="Create New Collection"
+//          let inputField=document.createElement('input')
+//          inputField.placeholder="Name Your Collection"
+//          inputField.type="text"
+//          let submitButton=document.createElement('button')
+//          submitButton.className="btn"
+//          submitButton.type="submit"
+
+//          formDiv.append(form)
+//          formDiv.append(heading)
+//          formDiv.append(inputField)
+//          formDiv.append(submitButton)
+//          mainContainer.append(formDiv)
+
+//          submitButton.addEventListener("click",  (e) =>{
+//            let userAnswer=document.querySelector('input').value
+//         console.log(userAnswer)
+//          console.log(formDiv, item)
+//          console.log(item.id)
+//          fetch('http://localhost:5000/collection_boards', {
+//                  method: "POST",
+//                  headers: {
+//                             "Content-Type": "application/json",
+//                             Accept: "application/json"
+//                         },
+//                          body: JSON.stringify({
+//                              name: userAnswer,
+//                              item_id: item.id
+//                          })
+//              })
+//              .then(resp=>console.log(resp))
+//              .then(collection_array => {
+//                  mainContainer.innerHTML=""
+//                  console.log(collection_array.name)
+//                  let sideCard=document.createElement('div')
+//                  let boardName=document.createElement('h2')
+//                  boardName.innerText=collection_array.name
+//                  sideCard.append(boardName)
+//                  rightSide.append(sideCard)
+
+//                  console.log(collection_array)
+//              })
+//             //     headers: {
+//             //         "Content-Type": "application/json",
+//             //         Accept: "application/json"
+//             //     },
+//             //     body: JSON.stringify({
+//             //         name: userAnswer,
+                    
+//             //     })
+//             //  })
+
+            
+//             })
+//    }        
+//  })
+// }  
+   
+            
+
+         
+    //     })
+    // })
  
 
 
