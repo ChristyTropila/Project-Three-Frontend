@@ -1,36 +1,56 @@
 
 //get stable elements
-navContainer=document.getElementById('top-container')
-navBarSection=document.getElementById('nav-bar')
-navBarUl=document.getElementById('nav-ul')
-mainContainer=document.getElementById('main-container')
-mainHeading=document.createElement('h2')
-leftCard=document.createElement('div')
+let navContainer=document.getElementById('top-container')
+let navBarSection=document.getElementById('nav-bar')
+let navBarUl=document.getElementById('nav-ul')
+let mainContainer=document.getElementById('main-container')
+
+let mainHeading=document.createElement('h2')
+mainHeading.className="side-label"
+let leftCard=document.createElement('div')
 leftCard.className="card-info"
 let mainObj={}
 let globalNav=undefined
 let itemId={}
 
-let rightSide=document.createElement('div')
-rightSide.id="side-bar"
-let sideLabel=document.createElement('h2')
-sideLabel.className="side-label"
-let categName=document.createElement('h3')
-categName.className="categ-name"
+let rightSide=document.getElementById('side-bar')
+
+
 
 //create li for nav bar
 //append to container
 //create click event
+
 fetch('http://localhost:5000/categories')
 .then(resp => resp.json())
 .then(categoryArray => {
+    
     mainCategory(categoryArray[0])
-    mainOb=categoryArray
+    mainObj=categoryArray
      categoryArray.forEach((cat)=> {
          renderCategoryList(cat)
+     
      })
 
     })
+
+    let getCollectionNames=() => {
+        fetch('http://localhost:5000/collection_boards')
+        .then(resp=>resp.json())
+        .then(collections => {
+                collections.forEach(collect => {
+                    let select=document.createElement('select')
+                    select.options=collect.name
+                    form.append(select)
+                    
+                })
+      
+        })
+    }
+
+   
+
+
 
     //create category elements and append
  let renderCategoryList= (cat) => {
@@ -40,13 +60,17 @@ fetch('http://localhost:5000/categories')
      navBarSection.append(navBarUl)
      globalNav=navButton
      navButton.addEventListener("click",(evt) => {
+         
          mainCategory(cat)
-           
+         
          })
      }
 
+
+     //display item in main container
  let mainCategory=(category) =>{
     mainContainer.innerHTML=""
+
     mainHeading.innerText=category.name
     mainContainer.append(mainHeading)
     title=document.createElement("h2")
@@ -82,26 +106,30 @@ fetch('http://localhost:5000/categories')
               mainContainer.append(cardDiv)
         
         
-              let button=document.createElement('span')
-              button.innerText="Pin This Item!"
-             cardDiv.append(button)
-             cardDiv.addEventListener("click", (e) =>{
-            //   console.log(button, item)
-         renderForm(item)
+               let button=document.createElement('span')
+                    button.innerText="Pin This Item!"
+                    cardDiv.append(button)
+                    cardDiv.addEventListener("click", (e) =>{
+                            
+                    renderForm(item)
              })
             })
 
+
+
+            //form to create a new collection_board
             let renderForm=(item)=> {
-               itemId=item.id
-            mainContainer.innerHTML=""
+                 itemId=item.id
+                      mainContainer.innerHTML=""
                      let form=document.createElement('form')
+                     getCollectionNames()
                      form.className="form-container"
                      let heading=document.createElement('h3')
                      heading.innerText="Create New Collection"
                      let inputField=document.createElement('input')
                      inputField.placeholder="Name Your Collection"
                      inputField.type="text"
-                     inputField.className="input"
+  
                      let submitButton=document.createElement('BUTTON')
                      submitButton.className="btn"
                      submitButton.type="submit"
@@ -109,7 +137,7 @@ fetch('http://localhost:5000/categories')
                    
                     mainContainer.append(form)
                 
-             form.addEventListener("submit", (evt) => {
+         form.addEventListener("submit", (evt) => {
                  evt.preventDefault()
                  let name=document.querySelector('input').value
                 
@@ -121,19 +149,45 @@ fetch('http://localhost:5000/categories')
                      },
                      body: JSON.stringify({
                          name: name,
-                
                          item_id: itemId,
                          user_id: 1
-                        
                      })
                      })
                      .then(resp => resp.json())
                      .then(collection => {
-                         console.log(collection)
-                        // let li=document.createElement('li')
-                        // li.innerText=collection.name
-                        //  rightSide.append(li)
-                        //  mainContainer.append(rightSide)
+                      let buttonAndItem=document.createElement('div')
+                      buttonAndItem.className="button-and-card"
+
+                    
+                         mainCategory(mainObj[0])
+                         let sideLabel=document.createElement('h2')
+                         sideLabel.className="categ-name"
+                        
+                        sideLabel.innerText=collection.name
+                        buttonAndItem.append(sideLabel)
+                         rightSide.append(buttonAndItem)
+                      
+                       
+                      collection.items.forEach(item => {
+                        let categName=document.createElement('h5')
+                        categName.className="categ-name"
+                         
+                            categName.innerText=item.name
+                            buttonAndItem.append(categName)
+
+                            rightSide.append(buttonAndItem)
+                        
+                            
+
+                            let deleteButton=document.createElement('BUTTON')
+                        
+                            deleteButton.type="submit"
+                            buttonAndItem.append(deleteButton)
+                            rightSide.append(buttonAndItem)
+                         
+                            item.collection_board_id=collection.id
+                          })
+                        
                      })
                      
 
@@ -141,103 +195,7 @@ fetch('http://localhost:5000/categories')
                 }
                 
             }
-           
 
-//     let renderForm=(item)=> {
-//            mainContainer.innerHTML=""
-//          let formDiv=document.createElement('div')
-//          formDiv.className="form-popup"
-//          let form=document.createElement('form')
-//          form.className="form-container"
-//          let heading=document.createElement('h3')
-//          heading.innerText="Create New Collection"
-//          let inputField=document.createElement('input')
-//          inputField.placeholder="Name Your Collection"
-//          inputField.type="text"
-//          let submitButton=document.createElement('button')
-//          submitButton.className="btn"
-//          submitButton.type="submit"
-
-//          formDiv.append(form)
-//          formDiv.append(heading)
-//          formDiv.append(inputField)
-//          formDiv.append(submitButton)
-//          mainContainer.append(formDiv)
-
-//          submitButton.addEventListener("click",  (e) =>{
-//            let userAnswer=document.querySelector('input').value
-//         console.log(userAnswer)
-//          console.log(formDiv, item)
-//          console.log(item.id)
-//          fetch('http://localhost:5000/collection_boards', {
-//                  method: "POST",
-//                  headers: {
-//                             "Content-Type": "application/json",
-//                             Accept: "application/json"
-//                         },
-//                          body: JSON.stringify({
-//                              name: userAnswer,
-//                              item_id: item.id
-//                          })
-//              })
-//              .then(resp=>console.log(resp))
-//              .then(collection_array => {
-//                  mainContainer.innerHTML=""
-//                  console.log(collection_array.name)
-//                  let sideCard=document.createElement('div')
-//                  let boardName=document.createElement('h2')
-//                  boardName.innerText=collection_array.name
-//                  sideCard.append(boardName)
-//                  rightSide.append(sideCard)
-
-//                  console.log(collection_array)
-//              })
-//             //     headers: {
-//             //         "Content-Type": "application/json",
-//             //         Accept: "application/json"
-//             //     },
-//             //     body: JSON.stringify({
-//             //         name: userAnswer,
-                    
-//             //     })
-//             //  })
-
-            
-//             })
-//    }        
-//  })
-// }  
-   
-            
-
-         
-    //     })
-    // })
- 
-
-
-        //  navButtons.addEventListener("click", (e) => {
-        //      clickedItem=mainObj.id
-        //      mainHeading.innerHTML=""
-        //      mainHeading.innerText=clickedItem.name
-        //      mainContainer.append(mainHeading)
-
-        
-        //      fetch('http://localhost:5000/items')
-        //      .then(resp=>resp.json())
-        //      .then(itemsArray=> {
-        //         itemsArray.forEach(item => {
-        //             if(clickedItem===item.category.id)
-        //              itemName=document.createElement('h2')
-        //             //  console.log(itemName)
-        //              itemName.innerText=item.name
-        //             //  console.log(itemName)
-        //             })
-                 
-        //      })
-            
-        //  })
-      
       
    
 
