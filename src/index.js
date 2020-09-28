@@ -39,9 +39,7 @@ fetch('http://localhost:5000/categories')
         .then(resp=>resp.json())
         .then(collections => {
                 collections.forEach(collect => {
-                    let select=document.createElement('select')
-                    select.options=collect.name
-                    form.append(select)
+                 
                     
                 })
       
@@ -133,7 +131,7 @@ fetch('http://localhost:5000/categories')
                      let submitButton=document.createElement('BUTTON')
                      submitButton.className="btn"
                      submitButton.type="submit"
-                   
+                     submitButton.innerText="Create!"
                      form.append(heading, inputField, submitButton)
                    
                     mainContainer.append(form)
