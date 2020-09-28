@@ -14,7 +14,7 @@ let globalNav=undefined
 let itemId={}
 
 let rightSide=document.getElementById('side-bar')
-
+ 
 
 
 //create li for nav bar
@@ -71,8 +71,8 @@ fetch('http://localhost:5000/categories')
  let mainCategory=(category) =>{
     mainContainer.innerHTML=""
 
-    mainHeading.innerText=category.name
-    mainContainer.append(mainHeading)
+    // mainHeading.innerText=category.name
+    // mainContainer.append(mainHeading)
     title=document.createElement("h2")
           category.items.forEach(item => {
             itemId=item.id
@@ -133,6 +133,7 @@ fetch('http://localhost:5000/categories')
                      let submitButton=document.createElement('BUTTON')
                      submitButton.className="btn"
                      submitButton.type="submit"
+                   
                      form.append(heading, inputField, submitButton)
                    
                     mainContainer.append(form)
@@ -182,6 +183,7 @@ fetch('http://localhost:5000/categories')
                             let deleteButton=document.createElement('BUTTON')
                         
                             deleteButton.type="submit"
+                            deleteButton.innerText="REMOVE"
                             buttonAndItem.append(deleteButton)
                             rightSide.append(buttonAndItem)
                          

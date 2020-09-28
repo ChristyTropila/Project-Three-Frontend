@@ -11,7 +11,7 @@ body{
     margin-right: -150px;
      top: 50px;
      right: 230px;
-     width: 70%;
+     width: 80%;
      }
 
      .nav-bar{
@@ -21,10 +21,12 @@ body{
 
 
     li {
+        font-family: 'Amatic SC', cursive;
     list-style-type: none;
+    color: #2e161d;
       display: inline;
       position: relative;
-      font-size: 20px;
+      font-size: 45px;
       padding-right: 30px;
       top: 10px;
       padding-left: 25px;
@@ -36,31 +38,40 @@ body{
         top: 200px;
         left: 100px;
         justify-content: center;
-        background: rgba(199, 131, 159, 0.2);
-        border-radius: 30px;
-        width: 50%;
+        background: white;
+        border-style:solid;
+        border-color: #5b2337;
+        box-shadow:10px 20px 0px 5px #5b2337;
+        border-radius: 20px;
+        width: 55%;
         height: auto;
     }
     .card {
+        
         position: relative;
         float: left;
         width: 200px;
         height: auto;
         margin-left: 18px;
         margin-right: 15px;
-        margin-bottom: 25px;
-        background:white;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        background: white;
         padding: 10px;
         border-style: solid;
-        border-color: black;
-        box-shadow:2px 2px 4px #000000;
+        border-radius: 20px;
+        border-color: #a67871;
+        box-shadow:10px 2px 5px 4px #2e161d;
+      
     
     }
     .card-info{
         position: relative;
        
       }
-
+     a{
+         margin-top: 20px;
+     }
       
       .btn{
           width:55px;
@@ -73,7 +84,7 @@ body{
       }
       .form-popup {
         padding: 10px;
-        background-color: white;
+        background-color: #a67871;
         position: absolute;
         width:500px;
         height: 500px;
@@ -81,8 +92,8 @@ body{
     
       }
        .btn {
-        background-color: #4CAF50;
-        color: white;
+        background-color: #a67871;
+        color: #a67871;
         padding: 16px 20px;
         border: none;
         cursor: pointer;
@@ -95,7 +106,7 @@ body{
         padding: 15px;
         margin: 5px 0 22px 0;
         border: none;
-        background: #f1f1f1;
+        background: #a67871;
       }
 
       .little-sweater {
@@ -109,9 +120,11 @@ body{
         
         }
      span{
-         border: purple;
-         border-style: solid;
-         border-width: 2px;
+        font-family: 'Dancing Script', cursive;
+         background: #2e161d;
+         color:white;
+         width:45px;
+         border-radius: 4px;
          float: right;
          justify-content: baseline;
      }
@@ -122,23 +135,45 @@ body{
         height:20px;
         margin: 20px;
         padding: 5px;
-       
         font-weight: bold;
         font-size: 15px;
-    
-        
     }
 
+    p{
+        color: #2e161d;
+        font-family: 'Nanum Pen Script', cursive;
+        font-size: 20px;
+     
+        
+    }
     .button-and-card{
-        border: black;
+        border: #2e161d;
+        background: white;
         border-width: 4px;
+        box-shadow:5px 3px 4px 5px #a67871;
     }
 
     .side-label {
         padding-bottom: 10px;
-         text-align:  center;
-         font-size: 30px;
-         padding-top: 0;
+        font-family: 'Amatic SC', cursive;
+         color: #ab4f01;
+        
+         font-size: 35px;
+        text-decoration: underline;
+         margin-left: 60px;
+         padding-left:30px;
+         margin-top: 26px;
+    
+       }
+       
+
+       h4{
+           font-size: 25px;
+           font-weight: bold;
+           font-family: 'Nanum Pen Script', cursive;
+           float:center;
+           align-items: center;
+          
        }
        
     
@@ -148,8 +183,7 @@ body{
         right: 100px;
         width: 27%; 
         overflow:scroll;
-     
-        background-image: linear-gradient(to right,rgba(243,153,51) , white);
+        background: #5b2337;
         border-radius: 30px;
         height: 450px;
     }
@@ -162,13 +196,52 @@ body{
         border-radius: 10px;
         }
         
-        ::-webkit-scrollbar-thumb {
-        background:plum; 
-        border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-        background: plum; 
+       
+     .button-and-card{
+         border-style: solid;
+         border-width:1px;
+         border-radius: 2px;
+         padding:10px;
+         margin:30px;
+       
+         background: white;
+     }
+
+     .categ-name{
+        font-family: 'Nanum Pen Script', cursive;
+        font-size: 20px;
+        color: #2e161d;
+     }
+     h2.categ-name{
+        font-family: 'Nanum Pen Script', cursive;
+        font-size: 30px; 
+        color:#2e161d;
+     
+        margin-top:-15px;
+     }
+     h5.categ-name{
+        font-family: 'Nanum Pen Script', cursive;
+        font-size: 20px; 
+        margin-top: -15px;
+     }
+     button{
+         position: relative;
+         width: 45px;
+         height: 30px;
+         margin-top: -30px;
+         background:#ab4f01;
+         font-family: 'Dancing Script', cursive;
+         color:white;
+         font-size:13px;
+         width:auto;
+         border-radius: 4px;
+         float: left;
+         justify-content: baseline;
+
         }
 
-     
+        .sweater{
+            float:left;
+            margin-top: 30px;
+            margin-left: 15px;
+        }
