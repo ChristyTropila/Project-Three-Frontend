@@ -13,14 +13,17 @@ leftCard.className="card-info"
 let mainObj={}
 let globalNav=undefined
 let itemId={}
+let globalCollection={}
 let rightSide=document.getElementById('side-bar')
- 
+//rightSide.style.display="none";
+
 let loginPopup=document.getElementsByClassName('login-form-popup')
 let signupPopup=document.getElementsByClassName('signup-form-popup')
 let loginForm=document.getElementById('login-form')
 let signupForm=document.getElementById('signup-form')
 let loginBtn=document.getElementById('login-submit')
 let signupBtn=document.getElementById('signup-submit')
+
 
 // // html.append(loginPopup, signupPopup)
 
@@ -50,7 +53,22 @@ let signupBtn=document.getElementById('signup-submit')
 
 
 
+let checkToSeeIfCollectionExist=()=>{
+    fetch('http://localhost:5000/collection_boards')
+    .then(resp=> resp.json())
+    .then(collectionBoards => {
+           console.log(collectionBoards)
+        if (collectionBoards.length===0) {
+            rightSide.style.display="none"
+        }else{
+           rightSide.style.display="block"
+        }
 
+    })
+}
+
+
+   
 
 
 
@@ -102,6 +120,7 @@ fetch('http://localhost:5000/categories')
      //display item in main container
  let mainCategory=(category) =>{
     mainContainer.innerHTML=""
+  
 
     // mainHeading.innerText=category.name
     // mainContainer.append(mainHeading)
@@ -109,7 +128,7 @@ fetch('http://localhost:5000/categories')
           category.items.forEach(item => {
             itemId=item.id
              mainContainer.HTML=""
-             cardDiv=document.createElement('div')
+            let cardDiv=document.createElement('div')
             cardDiv.className="card"
              title=document.createElement("h4")
              descrip=document.createElement('p')
@@ -217,25 +236,32 @@ fetch('http://localhost:5000/categories')
                             deleteButton.innerText="REMOVE"
                             buttonAndItem.append(deleteButton)
                             rightSide.append(buttonAndItem)
-                          
-                           
+                             let getCard=document.getElementsByClassName('card')
+                            mainContainer.id="main-container-2"
+                             rightSide.style.display="block"
+                              getCard.className="card-2"
                             deleteButton.addEventListener('click', (evt) => {
                                  fetch(`http://localhost:5000/collection_boards/${collection.id}`, {
                                     method: 'DELETE'
                                 })
                                 buttonAndItem.remove()
+                          
+                            //    rightSide.display.style="none"
+                            
+                            
                            })
-                       
+                        
                 
                })
           })
                         
      })
                      
+ }
 
  }
- }
-    
+
+ checkToSeeIfCollectionExist()
                 
             
 
