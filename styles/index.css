@@ -1,10 +1,18 @@
 
-body {
-    /* background: url("images/resize.png"); */
+ .main {
+     background: url("images/resize.png"); 
     background-attachment: fixed;
     background-repeat: no-repeat; 
     background-size: cover;
 }
+
+  .login{
+      background: url("images/firstpage.jpg");
+      background-attachment: fixed;
+      background-repeat: no-repeat; 
+      background-size: cover;
+  }
+  
 
 
 #top-container {
@@ -69,6 +77,22 @@ body {
         position:relative;
     }
 
+    #main-container-3{
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows:minmax(auto, auto);
+        margin-top:350px;
+        margin-left: 40px;
+        float:center;
+        background: white;
+        border-style:solid;
+        border-color: #5b2337;
+        box-shadow:10px 20px 0px 5px #5b2337;
+        border-radius: 20px;
+        width: 20%;
+        height: 200px;
+        position:relative;
+    }
     
 
     .card {
@@ -316,36 +340,15 @@ body {
         }
 
 
-       .login-form-popup{
-           position: relative;
-           width: 400px;
-           height: 500px;
-           float: left;
-       }
-
-      #login-submit{
-           width: 100px;
-           height: 100px;
-           background: red;
-       }
-       #login-form{
-        position: aboslute;
-        float:left;
-        background: red;
-        width: 500px
-       }
-
+      
        .signup-form-popup{
-        position: relative;
-        width: 400px;
-        height: 500px;
-        float: left;
-        
+        position: absolute;
+        margin-left:15px;
        }
        #signup-form{
-           position: absolute;
-           float:left;
-           background: blue;
-           width: 500px;
+           position:absolute;
+           float:center;
+           width: 200px;
+           height:auto;
        }
       

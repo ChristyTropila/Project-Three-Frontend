@@ -29,6 +29,8 @@ let currentUser={}
 // let signupBtn=document.getElementById('signup-submit')
 
  let signUPAction=() => {
+     mainContainer.id="main-container-3"
+     body.className="login"
    let signUpPopup=document.createElement('div')
    signUpPopup.className="signup-form-popup"
    let signupForm=document.createElement('form')
@@ -46,8 +48,9 @@ let currentUser={}
    usernameInput.type="text"
    let createAcct=document.createElement("BUTTON")
    createAcct.type="submit"
-   createAcct.class="login-btn"
-   createAcct.id="login-submit"
+   createAcct.class="btn"
+   createAcct.innerText="Create Account!"
+   
    signupForm.append(label, nameInput, usernameInput, createAcct)
    signUpPopup.append(signupForm)
    mainContainer.append(signUpPopup)
@@ -86,6 +89,8 @@ let currentUser={}
 
  function startMainPage(){
     mainContainer.innerHTML=""
+     body.className="main"
+    mainContainer.id="main-container"
     //this will hide the collection board when the user first enters page
 let checkToSeeIfCollectionExist=()=>{
     fetch('http://localhost:5000/collection_boards')
@@ -229,7 +234,7 @@ let checkToSeeIfCollectionExist=()=>{
                      body: JSON.stringify({
                          name: name,
                          item_id: itemId,
-                         user_id: 1
+                         user_id: currentUser.id
                      })
                      })
                      .then(resp => resp.json())
