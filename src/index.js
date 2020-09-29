@@ -304,7 +304,8 @@ fetch('http://localhost:5000/categories')
                                })
                                .then(resp => resp.json())
                                .then(collection => {
-                                   console.log(collection)
+                                mainCategory(mainObj[0])
+                                  sideLabel.innerText=collection.name
                                })
                             
                            })
