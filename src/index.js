@@ -4,9 +4,8 @@ let navContainer=document.getElementById('top-container')
 let navBarSection=document.getElementById('nav-bar')
 let navBarUl=document.getElementById('nav-ul')
 let mainContainer=document.getElementById('main-container')
+
 let body=document.querySelector('body')
-
-
 let mainHeading=document.createElement('h2')
 mainHeading.className="side-label"
 let leftCard=document.createElement('div')
@@ -15,6 +14,42 @@ let mainObj={}
 let globalNav=undefined
 let itemId={}
 let rightSide=document.getElementById('side-bar')
+ 
+let loginPopup=document.getElementsByClassName('login-form-popup')
+let signupPopup=document.getElementsByClassName('signup-form-popup')
+let loginForm=document.getElementById('login-form')
+let signupForm=document.getElementById('signup-form')
+let loginBtn=document.getElementById('login-submit')
+let signupBtn=document.getElementById('signup-submit')
+
+// // html.append(loginPopup, signupPopup)
+
+// loginPopup.hide()
+//  let signUPAction=() => {
+//      signupForm.addEventListener("submit", (e) => {
+//         e.preventDefault()
+//        let getName=e.target.name.value
+//        let userName=e.target.username.value
+//         fetch('http://localhost:5000/users', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 Accept: 'application/json'
+//              },
+//              body: JSON.stringify({
+//                  name: getName,
+//                  username:userName
+//              })
+//         })
+//         e.target.reset() 
+        
+//      })
+//  }
+//  signUPAction()
+
+
+
+
 
 
 
@@ -22,9 +57,6 @@ let rightSide=document.getElementById('side-bar')
 //create li for nav bar
 //append to container
 //create click event
-
-
-
 fetch('http://localhost:5000/categories')
 .then(resp => resp.json())
 .then(categoryArray => {
@@ -56,14 +88,17 @@ fetch('http://localhost:5000/categories')
      navBarUl.append(navButton)
      navBarSection.append(navBarUl)
      globalNav=navButton
+
+   
      navButton.addEventListener("click",(evt) => {
-         
+        
+   
          mainCategory(cat)
          
          })
      }
 
-
+   
      //display item in main container
  let mainCategory=(category) =>{
     mainContainer.innerHTML=""
@@ -81,7 +116,7 @@ fetch('http://localhost:5000/categories')
              address=document.createElement('p')
              url=document.createElement('a')
             url.setAttribute('href', item.url)
-            url.textContent="Link To Source"
+            url.textContent="Website Link"
             url.target="_blank"
            image=document.createElement('img')
             image.className="image-top"
@@ -119,7 +154,7 @@ fetch('http://localhost:5000/categories')
          itemId=item.id
           mainContainer.innerHTML=""
          let form=document.createElement('form')
-          getCollectionNames()
+         
         form.className="form-container"
          let heading=document.createElement('h3')
          heading.innerText="Create New Collection"
@@ -153,9 +188,12 @@ fetch('http://localhost:5000/categories')
                      })
                      .then(resp => resp.json())
                      .then(collection => {
+                      let sideCard=document.createElement('div')
+                      sideCard.id="side-bar"
+                      sideCard.className="container"
                       let buttonAndItem=document.createElement('div')
                       buttonAndItem.className="button-and-card"
-
+       
                     
                          mainCategory(mainObj[0])
                          let sideLabel=document.createElement('h2')

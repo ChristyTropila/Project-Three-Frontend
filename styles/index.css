@@ -16,12 +16,14 @@ body{
  }
 
      .nav-bar{
+         
         margin-top: 30px;
     
     }
 
 
     li {
+        
     font-family: 'Amatic SC', cursive;
     list-style-type: none;
     color: #2e161d;
@@ -34,6 +36,11 @@ body{
       font-weight: bold;
     
     }   
+
+   
+
+
+  
     #main-container {
         display:grid;
         grid-template-columns: repeat(3, 1fr);
@@ -51,16 +58,16 @@ body{
         position:relative;
     }
     .card {
-        position: relative;
+       
+        text-align: center;
         float: left;
         width: 220px;
         height: auto;
         margin-left: 24px;
         margin-right: 15px;
         margin-top: 25px;
-        margin-bottom: 15px;
         background: white;
-        padding: 10px;
+        padding-bottom: 50px;
         border-style: solid;
         border-radius: 20px;
         border-color: #a67871;
@@ -69,10 +76,11 @@ body{
     }
    
      a{ 
+         text-decoration-color: pink;
          position: absolute;
          bottom: 0;
-         left: 0;
-         margin-top:  -10px;
+        
+         
      }
       
       .btn{
@@ -121,7 +129,7 @@ body{
      span{
          position: absolute;
         bottom:0;
-        right:-0;
+        right:0;
         font-family: 'Dancing Script', cursive;
          color:#2e161d;
          font-weight: bold;
@@ -270,14 +278,47 @@ body{
         }
 
         .sweater{
+            transition: width 2s, height 4s;
             float:left;
             margin-top: 30px;
             margin-left: 15px;
         }
         .sweater-2{
+            transition: 10s;
             position: realtive;
             float:right;
             margin-top:100px;
             margin-right: 240px;
             
         }
+
+
+       .login-form-popup{
+           position: relative;
+           width: 400px;
+           height: 500px;
+           margin-top: 200px;
+           float: left;
+       }
+       #login-form{
+        position: aboslute;
+        float:left;
+        background: red;
+        width: 500px
+       }
+
+       .signup-form-popup{
+        position: relative;
+        width: 400px;
+        height: 500px;
+        margin-top: 200px;
+        float: left;
+        
+       }
+       #signup-form{
+           position: absolute;
+           float:left;
+           background: blue;
+           width: 500px;
+       }
+      
