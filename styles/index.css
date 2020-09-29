@@ -7,18 +7,13 @@ body{
 }
 
 
-.login{
-    
-    background: red;
-}
-
 #top-container{
     position: absolute;
-    margin-right: -150px;
+    margin-right: 10px;
      top: 50px;
      right: 230px;
      width: 80%;
-     }
+ }
 
      .nav-bar{
         margin-top: 30px;
@@ -27,23 +22,25 @@ body{
 
 
     li {
-        font-family: 'Amatic SC', cursive;
+    font-family: 'Amatic SC', cursive;
     list-style-type: none;
     color: #2e161d;
       display: inline;
       position: relative;
       font-size: 45px;
-      padding-right: 30px;
+      padding-right:20px;
       top: 10px;
-      padding-left: 25px;
+      padding-left: 5px;
       font-weight: bold;
     
     }   
     #main-container {
-        position: absolute;
-        top: 200px;
-        left: 100px;
-        justify-content: center;
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows:minmax(auto, auto);
+       margin-top:200px;
+       margin-left:40px;
+        float:left;
         background: white;
         border-style:solid;
         border-color: #5b2337;
@@ -51,14 +48,14 @@ body{
         border-radius: 20px;
         width: 55%;
         height: auto;
+        position:relative;
     }
     .card {
-        
         position: relative;
         float: left;
-        width: 200px;
+        width: 220px;
         height: auto;
-        margin-left: 18px;
+        margin-left: 24px;
         margin-right: 15px;
         margin-top: 25px;
         margin-bottom: 15px;
@@ -69,17 +66,17 @@ body{
         border-color: #a67871;
         box-shadow:10px 2px 5px 4px #2e161d;
       
-    
     }
-    .card-info{
-        position: relative;
-       
-      }
-     a{
-         margin-top: 20px;
+   
+     a{ 
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         margin-top:  -10px;
      }
       
       .btn{
+          
           width:55px;
           height: 200x;
       }
@@ -88,6 +85,18 @@ body{
           position:relative;
           width: 100px;
       }
+
+      
+      input{
+        margin-left:30px;
+        width: 80%;
+        padding: 15px;
+        border-style: solid;
+        border-width: 4px;
+        border: #a67871;
+       
+      }
+
       .form-popup {
         padding: 10px;
         position: absolute;
@@ -98,17 +107,6 @@ body{
       }
 
     
-      input{
-        margin-left:30px;
-        width: 80%;
-        padding: 15px;
-       
-        border-style: solid;
-        border-width: 4px;
-        border: #a67871;
-       ;
-      }
-
       .little-sweater {
         position: absolute;
    
@@ -119,18 +117,22 @@ body{
           float:right;
         
         }
+
      span{
+         position: absolute;
+        bottom:0;
+        right:-0;
         font-family: 'Dancing Script', cursive;
-         
          color:#2e161d;
          font-weight: bold;
-         width:45px;
+         width:55px;
          border-radius: 4px;
          border-style:solid;
-         border-width: 3px;
+         border-width: 4px;
          border-color: #2e161d;
-         float: right;
-         justify-content: baseline;
+         
+
+         
      }
       #side-card {
         position: relative;
@@ -147,21 +149,14 @@ body{
         color: #2e161d;
         font-family: 'Nanum Pen Script', cursive;
         font-size: 20px;
-     
+    
         
-    }
-    .button-and-card{
-        border: #2e161d;
-        background: white;
-        border-width: 4px;
-        box-shadow:5px 3px 4px 5px #a67871;
     }
 
     .side-label {
         padding-bottom: 10px;
         font-family: 'Amatic SC', cursive;
          color: #ab4f01;
-        
          font-size: 35px;
         text-decoration: underline;
          margin-left: 20px;
@@ -172,8 +167,8 @@ body{
        
 
        h4{
-           font-size: 25px;
-           font-weight: bold;
+           font-size: 35px;
+            color:#ab4f01;
            font-family: 'Nanum Pen Script', cursive;
            float:center;
            align-items: center;
@@ -202,13 +197,19 @@ body{
         
        
      .button-and-card{
-         border-style: solid;
-         border-width:1px;
+        border: #2e161d;
+        font-family: 'Dancing Script', cursive;
+        border-width: 4px;
+        box-shadow:5px 3px 4px 5px #a67871;
          border-radius: 5px;
          padding:10px;
          margin:30px;
          background: white;
+         
+
      }
+
+   
 
      .categ-name{
         font-family: 'Nanum Pen Script', cursive;
@@ -229,18 +230,18 @@ body{
         margin-top: -15px;
      }
      button{
-         position: relative;
-         width: auto;
-         height: auto;
-         font-family: 'Dancing Script', cursive;
-         color:#5b2337;
-         background: white;
-         font-size:15px;
-         width:auto;
-         border-radius: 4px;
-         float: left;
-        
-        }
+        position: relative;
+        width: auto;
+        height: auto;
+        font-family: 'Dancing Script', cursive;
+        color: #2e161d;;
+        background: white;
+        font-size:15px;
+        width:auto;
+        border-radius: 4px;
+        float: left;
+       
+       }
 
         button.btn{
             margin-left:30px;
@@ -255,7 +256,8 @@ body{
             text-align: center;
             align-items: center;
         padding: 16px 20px;
-        width: 20%;
+        width: auto;
+        height:auto;
         margin-bottom:10px;
         font-size:20px;
       
@@ -276,6 +278,6 @@ body{
             position: realtive;
             float:right;
             margin-top:100px;
-            margin-right: 40px;
+            margin-right: 240px;
             
         }

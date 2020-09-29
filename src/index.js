@@ -43,7 +43,6 @@ fetch('http://localhost:5000/categories')
         .then(resp=>resp.json())
         .then(collections => {
                 collections.forEach(collect => {
-                 
                     
                 })
       
@@ -183,22 +182,21 @@ fetch('http://localhost:5000/categories')
                           
                            
                             deleteButton.addEventListener('click', (evt) => {
-                                debugger;
-                                fetch(`http://localhost:5000/collection_boards/${collection.id}`, {
+                                 fetch(`http://localhost:5000/collection_boards/${collection.id}`, {
                                     method: 'DELETE'
                                 })
                                 buttonAndItem.remove()
                            })
-                            
+                       
                 
-                            })
-                        })
+               })
+          })
                         
-                     })
+     })
                      
 
-                 }
-                }
+ }
+ }
     
                 
             
