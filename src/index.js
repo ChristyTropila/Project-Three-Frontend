@@ -122,23 +122,26 @@ let displayCollection=()=> {
             renderCategoryList(cat)
         
         })
-        
-        let sweater3=document.createElement('img')
-        sweater3.src="styles/images/sweater1.png"
-        sweater3.className="sweater-2"
+        let logOut=document.createElement('li')
+        logOut.innerText="Logout"
+        // navBarUl.append(logOut)
+        // navBarSection.append(navBarUl)
+
+    
         let sweaters=document.createElement('img')
         sweaters.src="styles/images/sweater2.png"
+        sweaters.id="orangeSweater"
         let sweater2=document.createElement('img')
         sweater2.className="sweater"
         sweater2.src="styles/images/sweater3.png"
-        navBarUl.append(sweaters, sweater2, sweater3)
-        navBarSection(navBarUl)
+        navBarUl.append(logOut, sweaters)
+        navBarSection(navBarUl, sweaters, sweater2, sweater3)
         })
 
     //display categories in nav bar
     let renderCategoryList= (cat) => {
         mainCatg=cat
-        navButton=document.createElement('li')
+        let navButton=document.createElement('li')
         navButton.innerText=cat.name
         navBarUl.append(navButton)
         navBarSection.append(navBarUl)
@@ -148,6 +151,8 @@ let displayCollection=()=> {
          mainCategory(cat)
          
          })
+    
+
      }
     }
    
@@ -385,6 +390,11 @@ let displayCollection=()=> {
                         let buttonAndItem=document.createElement('div')
                         buttonAndItem.className="button-and-card"
         
+                        let sweater3=document.createElement('img')
+                        sweater3.src="styles/images/sweater3.png"
+                        sweater3.id="sweater3"
+                        buttonAndItem.append(sweater3)
+                        rightSide.append(buttonAndItem)
                     
                          mainCategory(mainObj[0])
                          let sideLabel=document.createElement('h2')
