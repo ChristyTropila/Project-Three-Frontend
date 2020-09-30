@@ -298,32 +298,26 @@ let displayCollection=()=> {
                     })
                     .then(resp => resp.json())
                     .then(collection => {
-                     
+                    
+                        //place selected item in corresponding div
                  let newp=document.createElement('h5.categ-name')
-                 newp.className="categ-name-2"
-
-                 let card=document.querySelector('.button-and-card')
+                 newp.className="categ-name"
                 let tags=document.querySelectorAll('h2.categ-name')
-                 
-                    tags.className="categ-name-2"
-                    console.log(tags)
+              
                     let searchText=name;
                     let found; 
-                    
+                
+                    console.log(searchText)
                     for(let i=0; i< tags.length; i++){
                         if(tags[i].textContent==searchText){
                             found=tags[i]
+                      let selectedCard=found.parentNode
+                      newp.innerText=item.name
+                        selectedCard.append(newp)
                             break;
                         }
                     }
-                    
-                    found.clasName="categ-name"
-
-                    found.innerText=item.name
-                    found.append(newp)
-                    
-                    card.append(tags)
-                    card.append(found)
+ 
                 
                    mainCategory(mainCatg)
             })
@@ -447,6 +441,7 @@ let displayCollection=()=> {
 //update collection name form 
     updateButton.addEventListener("click", (evt) => {
         evt.preventDefault()
+        userCollections.pop(collection)
         globalCollectionId=collection.id
         mainContainer.innerHTML=""
         let updateform=document.createElement('form')
@@ -486,6 +481,7 @@ let displayCollection=()=> {
         })
                 .then(resp => resp.json())
                 .then(collection => {
+                   userCollections.push(collection)
                 mainCategory(mainObj[0])
                     sideLabel.innerText=collection.name
                 })

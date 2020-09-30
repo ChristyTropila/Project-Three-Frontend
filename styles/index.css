@@ -9,7 +9,8 @@
   .login{
       background: url("images/firstpage.jpg");
       background-attachment: fixed;
-      background-repeat: no-repeat; 
+      background-repeat: no-repeat;
+      background-size: cover;
     
   }
   
@@ -342,10 +343,14 @@
 
       
        .signup-form-popup{
+        font-family: 'Dancing Script', cursive;
+        font-size: 18x;;
         position: absolute;
         margin-left:15px;
+        font-weight: bold;
        }
        #signup-form{
+        font-family: 'Dancing Script', cursive;
            position:absolute;
            float:center;
            width: 200px;
