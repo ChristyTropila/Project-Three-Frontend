@@ -16,17 +16,13 @@ rightSide.style.display="none";
 
 
 let mainObj={}
+let mainCatg={}
 let globalNav=undefined
 let itemId={}
 let globalCollectionId={}
 let currentUser={}
 let userCollections=[]
-// let loginPopup=document.getElementsByClassName('login-form-popup')
-// let signupPopup=document.getElementsByClassName('signup-form-popup')
-// let loginForm=document.getElementById('login-form')
-// let signupForm=document.getElementById('signup-form')
-// let loginBtn=document.getElementById('login-submit')
-// let signupBtn=document.getElementById('signup-submit')
+
 
  let signUPAction=() => {
      mainContainer.id="main-container-3"
@@ -87,7 +83,10 @@ let userCollections=[]
 
 // when called, signup disappears and main page is rendered
  function startMainPage(){
+
     mainContainer.innerHTML=""
+    
+
      body.className="main"
     mainContainer.id="main-container"
     //this will hide the collection board when the user first enters page
@@ -119,6 +118,7 @@ let displayCollection=()=> {
         //display the first category on the main section
         mainCategory(categoryArray[0])
         mainObj=categoryArray
+        mainCatg= categoryArray[0]
         categoryArray.forEach((cat)=> {
             renderCategoryList(cat)
         
@@ -138,6 +138,7 @@ let displayCollection=()=> {
 
     //display categories in nav bar
     let renderCategoryList= (cat) => {
+        mainCatg=cat
         navButton=document.createElement('li')
         navButton.innerText=cat.name
         navBarUl.append(navButton)
@@ -216,11 +217,12 @@ let displayCollection=()=> {
                 return unique
                   
                })
-    
         })
       
     }
 
+
+    //toggles different forms 
     let seeIfCollectionIsEmpty=(item)=>{
         if(userCollections.length===0){
             renderForm(item)
@@ -230,6 +232,9 @@ let displayCollection=()=> {
     }
 
 
+
+
+    //this form contains the select drop down and also option to create new name
     let renderSelectForm=(item) =>{
       //  itemId=item.id
         mainContainer.innerHTML=""
@@ -251,29 +256,87 @@ let displayCollection=()=> {
     
 
        for(let i=0; i<userCollections.length; i++){
-           console.log(userCollections[i]["name"])
            let options=document.createElement('option')
-      options.setAttribute("value",userCollections[i]["name"])
-      value=document.createTextNode(userCollections[i]["name"])
-      options.append(value)
-        formSelect.insertBefore(options, formSelect.lastChild)
+          options.setAttribute("value",userCollections[i]["name"])
+          value=document.createTextNode(userCollections[i]["name"])
+          options.append(value)
+          formSelect.insertBefore(options, formSelect.lastChild)
+    
        
        }
+
 
        form.append( heading, formSelect, submitButton,newNameBtn)
        mainContainer.append(form)
 
-       newNameBtn.addEventListener("click", (evt) => {
+       //new name button 
+    newNameBtn.addEventListener("click", (evt) => {
+        evt.preventDefault()
         itemId=item.id
-   
         mainContainer.innerHTML=""
-       
            renderForm(item)
-
             })
+
+            //for submit
+            form.addEventListener("submit", (evt) => {
+             evt.preventDefault()
+
+            let selectElement=document.querySelector('select')
+            let name= selectElement.options[selectElement.selectedIndex].value
+
+                fetch('http://localhost:5000/collection_boards', {
+                    method:'POST',
+                    headers: {
+                       'Content-Type': 'application/json',
+                       Accept: 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        item_id: itemId,
+                        user_id: currentUser.id
+                    })
+                    })
+                    .then(resp => resp.json())
+                    .then(collection => {
+                     
+                 let newp=document.createElement('h5.categ-name')
+                 newp.className="categ-name-2"
+
+                 let card=document.querySelector('.button-and-card')
+                let tags=document.querySelectorAll('h2.categ-name')
+                 
+                    tags.className="categ-name-2"
+                    console.log(tags)
+                    let searchText=name;
+                    let found; 
+                    
+                    for(let i=0; i< tags.length; i++){
+                        if(tags[i].textContent==searchText){
+                            found=tags[i]
+                            break;
+                        }
+                    }
+                    
+                    found.clasName="categ-name"
+
+                    found.innerText=item.name
+                    found.append(newp)
+                    
+                    card.append(tags)
+                    card.append(found)
+                
+                   mainCategory(mainCatg)
+            })
+          
+        })
+         
+
         }
 
-    
+
+
+
+
 
 
  //form to create a new collection_board
@@ -376,6 +439,7 @@ let displayCollection=()=> {
                                     method: 'DELETE'
                                 })
                                 buttonAndItem.remove()
+                                userCollections.pop(collection)
                             
                            })
 
@@ -448,6 +512,9 @@ let displayCollection=()=> {
                 collection.items.forEach (item => {
                     item.id
                 })
+
+
+
             }
 
  
