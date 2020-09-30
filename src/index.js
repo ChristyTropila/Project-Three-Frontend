@@ -25,8 +25,8 @@ let userCollections=[]
 
 
  let signUPAction=() => {
-     mainContainer.id="main-container-3"
-     body.className="login"
+ mainContainer.id="main-container-3"
+ body.className="login"
    let signUpPopup=document.createElement('div')
    signUpPopup.className="signup-form-popup"
    let signupForm=document.createElement('form')
@@ -85,27 +85,26 @@ let userCollections=[]
  function startMainPage(){
 
     mainContainer.innerHTML=""
-    
-
-     body.className="main"
+    body.className="main"
     mainContainer.id="main-container"
+
     //this will hide the collection board when the user first enters page
-    let checkToSeeIfCollectionExist=()=>{
-    fetch('http://localhost:5000/collection_boards')
+     
+    fetch(`http://localhost:5000/users/${currentUser.id}`)
     .then(resp=> resp.json())
-    .then(collectionBoards => {
-        if (collectionBoards.length===0) {
+    .then(user => {
+        console.log(user.collection_boards)
+        if (user.collection_boards.length===0) {
             rightSide.style.display="none"
         }else{
            rightSide.style.display="block"
         }
-
-        displayCollection(collectionBoards)
+    
+        displayCollection(user.collection_boards)
     })
 
 }    
-checkToSeeIfCollectionExist()
-}
+
 
    
 
@@ -193,8 +192,7 @@ let displayCollection=()=> {
                     button.innerText="Pin This Item!"
                     cardDiv.append(button)
                     cardDiv.addEventListener("click", (e) =>{
-                       seeIfCollectionIsEmpty(item)
-               
+                       seeIfCollectionIsEmpty(item)  
              })
              
           })
@@ -214,13 +212,12 @@ let displayCollection=()=> {
              let unique =userCollections.filter(function(item, pos){
                 return userCollections.indexOf(item)===pos;
               } )
+
                 return unique
                   
                })
-        })
-      
+        })  
     }
-
 
     //toggles different forms 
     let seeIfCollectionIsEmpty=(item)=>{
@@ -230,9 +227,6 @@ let displayCollection=()=> {
           renderSelectForm(item)
         }
     }
-
-
-
 
     //this form contains the select drop down and also option to create new name
     let renderSelectForm=(item) =>{
@@ -246,7 +240,7 @@ let displayCollection=()=> {
         let submitButton=document.createElement('BUTTON')           
         submitButton.className="btn"
         submitButton.type="submit"
-       submitButton.innerText="Create!"
+        submitButton.innerText="Create!"
 
         let newNameBtn=document.createElement('SPAN')
      
@@ -257,15 +251,12 @@ let displayCollection=()=> {
     
 
        for(let i=0; i<userCollections.length; i++){
-           let options=document.createElement('option')
+         let options=document.createElement('option')
           options.setAttribute("value",userCollections[i]["name"])
           value=document.createTextNode(userCollections[i]["name"])
           options.append(value)
           formSelect.insertBefore(options, formSelect.lastChild)
-    
-       
        }
-
 
        form.append( heading, formSelect, submitButton,newNameBtn)
        mainContainer.append(form)
@@ -280,10 +271,10 @@ let displayCollection=()=> {
 
             //for submit
             form.addEventListener("submit", (evt) => {
-             evt.preventDefault()
+              evt.preventDefault()
 
-            let selectElement=document.querySelector('select')
-            let name= selectElement.options[selectElement.selectedIndex].value
+                let selectElement=document.querySelector('select')
+                let name= selectElement.options[selectElement.selectedIndex].value
 
                 fetch('http://localhost:5000/collection_boards', {
                     method:'POST',
@@ -357,7 +348,7 @@ let displayCollection=()=> {
   
          let submitButton=document.createElement('BUTTON')           
          submitButton.className="btn"
-          submitButton.type="submit"
+         submitButton.type="submit"
          submitButton.innerText="Create!"
 
          form.append(heading, inputField, submitButton)
@@ -399,19 +390,19 @@ let displayCollection=()=> {
                          let sideLabel=document.createElement('h2')
                          sideLabel.className="categ-name"
                         
-                        sideLabel.innerText=collection.name
-                        buttonAndItem.append(sideLabel)
+                         sideLabel.innerText=collection.name
+                         buttonAndItem.append(sideLabel)
                          rightSide.append(buttonAndItem)
                       
                          item.collection_board_id=collection.id
                          collection.items.forEach(item => {
-                        let categName=document.createElement('h5')
-                        categName.className="categ-name"
+                            let categName=document.createElement('h5')
+                            categName.className="categ-name"
                          
                             categName.innerText=item.name
                             buttonAndItem.append(categName)
                             rightSide.append(buttonAndItem)
-
+             
 
                             let deleteButton=document.createElement('BUTTON')
                             deleteButton.type="submit"
@@ -500,23 +491,14 @@ let displayCollection=()=> {
      }
     })
 
-})
-                     
-// }else{
-    //renderSelectForm(item)
-
-
-// }
-     }
+  })
+ }
 
           //helper method to get item_id
             let renderItemId=(collection)=> {
                 collection.items.forEach (item => {
                     item.id
                 })
-
-
-
             }
 
  
