@@ -25,6 +25,8 @@ let userCollections=[]
 
 
  let signUPAction=() => {
+ mainContainer.innerHTML=""
+navContainer.style.visibility="false"
  mainContainer.id="main-container-3"
  body.className="login"
    let signUpPopup=document.createElement('div')
@@ -46,7 +48,39 @@ let userCollections=[]
    createAcct.type="submit"
    createAcct.class="btn"
    createAcct.innerText="Create Account!"
-   
+
+
+ 
+   mainContainer.innerHTML=""
+   navContainer.style.visibility="false"
+    mainContainer.id="main-container-3"
+    body.className="login"
+      let logInPopup=document.createElement('div')
+      logInPopup.className="login-form-popup"
+      let logInForm=document.createElement('form')
+      
+      logInForm.className="form-container"
+      logInForm.id="signup-form"
+      let labelLogin=document.createElement('h2')
+      labelLogin.innerText="Login"
+      let nameInputLogin=document.createElement('input')
+      nameInputLogin.placeholder="Name"
+      nameInputLogin.name="name"
+      nameInputLogin.type="text"
+      let nameInputLoginF=document.createElement('input')
+      nameInputLoginF.placeholder="User Name"
+      nameInputLoginF.name="username"
+      nameInputLoginF.type="text"
+      let login=document.createElement("BUTTON")
+      login.type="submit"
+      login.class="btn"
+      login.innerText="Login!"
+
+
+    logInForm.append(labelLogin, nameInputLogin, nameInputLoginF, login)
+    logInPopup.append(logInForm)
+    mainContainer.append(logInPopup)
+
    signupForm.append(label, nameInput, usernameInput, createAcct)
    signUpPopup.append(signupForm)
    mainContainer.append(signUpPopup)
@@ -76,14 +110,33 @@ let userCollections=[]
         })
         
      })
- }
- signUPAction()
 
+
+     logInForm.addEventListener("submit", (evt) => {
+         evt.preventDefault()
+      
+         let userName=evt.target.username.value
+         fetch(`http://localhost:5000/login/${userName}`)
+         .then(resp => resp.json())
+         .then(foundUser => {
+             currentUser=foundUser
+             if(foundUser.id){
+                 startMainPage()
+             }
+         })
+        //  if(userName){
+        //      currenUser=
+        //     startMainPage()
+        //  }
+    
+ })
+}
+signUPAction()
 
 
 // when called, signup disappears and main page is rendered
  function startMainPage(){
-
+  
     mainContainer.innerHTML=""
     body.className="main"
     mainContainer.id="main-container"
@@ -135,7 +188,10 @@ let displayCollection=()=> {
         sweater2.className="sweater"
         sweater2.src="styles/images/sweater3.png"
         navBarUl.append(logOut, sweaters)
-        navBarSection(navBarUl, sweaters, sweater2, sweater3)
+       // navBarSection.append(navBarUl, sweaters, sweater2)
+            logOut.addEventListener(("click"), (evt) => {
+                 logOutUser(currentUser)
+            })
         })
 
     //display categories in nav bar
@@ -160,6 +216,7 @@ let displayCollection=()=> {
  let mainCategory=(category) =>{
   
         mainContainer.innerHTML=""
+    
         title=document.createElement("h2")
             category.items.forEach(item => {
                 itemId=item.id
@@ -503,6 +560,16 @@ let displayCollection=()=> {
 
   })
  }
+
+
+       let logOutUser=(currentUser)=> {
+           fetch(`http://localhost:5000/users/${currentUser.id}`, {
+               method: "DELETE"
+           })
+            
+            window.location.reload()
+             
+       }
 
           //helper method to get item_id
             let renderItemId=(collection)=> {

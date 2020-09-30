@@ -92,8 +92,8 @@
         border-color: #5b2337;
         box-shadow:10px 20px 0px 5px #5b2337;
         border-radius: 20px;
-        width: 20%;
-        height: 200px;
+        width: 40%;
+        height: 190px;
         position:relative;
     }
     
@@ -139,12 +139,13 @@
     }
    
      a { 
-         text-decoration-color: pink;
          position: absolute;
          bottom: 0;
-        
-         
+         font-size:10px;
+            
      }
+
+     
       
       .btn {
 
@@ -155,8 +156,8 @@
  
 
       input{
-            position:relative;
-          width: 100px;
+       position:relative;
+        width: 100px;
         margin-left:30px;
         width: 100%;
         padding: 15px;
@@ -170,11 +171,26 @@
         padding: 10px;
         position: absolute;
         width:30px;
-        height: 500px;
+        height: 600px;
         left: 300px;
     
       }
 
+      .login-form-popup {
+        padding: 10px;
+        position: absolute;
+        width:30px;
+        height: 600px;
+        left: 250px;
+      
+    
+    
+      }
+
+
+      .form-container{
+ 
+      }
     
        #orangeSweater{
         position: absolute;
@@ -391,6 +407,14 @@
         }
 
 
+        .login-form-popup{
+            font-family: 'Dancing Script', cursive;
+            font-size: 18x;;
+            position: absolute;
+            margin-left:15px;
+            font-weight: bold;
+            margin-top:-10px;   
+        }
       
        .signup-form-popup{
         font-family: 'Dancing Script', cursive;
@@ -403,7 +427,7 @@
         font-family: 'Dancing Script', cursive;
            position:absolute;
            float:center;
-           width: 200px;
+           width: 250px;
            height:auto;
        }
       
