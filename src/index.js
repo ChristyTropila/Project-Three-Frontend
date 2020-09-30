@@ -251,6 +251,7 @@ let displayCollection=()=> {
         let newNameBtn=document.createElement('SPAN')
      
         newNameBtn.innerText="Create New Name!"
+        newNameBtn.id="createName"
 
        let formSelect=document.createElement('SELECT')
     
@@ -300,10 +301,10 @@ let displayCollection=()=> {
                     .then(collection => {
                     
                         //place selected item in corresponding div
-                 let newp=document.createElement('h5.categ-name')
+                 let newp=document.createElement('h5')
                  newp.className="categ-name"
                 let tags=document.querySelectorAll('h2.categ-name')
-              
+           
                     let searchText=name;
                     let found; 
                 
@@ -311,9 +312,12 @@ let displayCollection=()=> {
                     for(let i=0; i< tags.length; i++){
                         if(tags[i].textContent==searchText){
                             found=tags[i]
-                      let selectedCard=found.parentNode
-                      newp.innerText=item.name
-                        selectedCard.append(newp)
+                    let button=document.querySelector('button')
+                          let selectedCard=found.parentNode
+                          newp.innerText=item.name
+                          let findFirsth5=document.querySelector('h5').insertAdjacentElement('beforebegin', newp)
+                       // selectedCard.insertAdjacentHTML( newp)
+                       selectedCard.appendChild(findFirsth5)
                             break;
                         }
                     }
@@ -412,11 +416,13 @@ let displayCollection=()=> {
                             let deleteButton=document.createElement('BUTTON')
                             deleteButton.type="submit"
                             deleteButton.innerText="Remove"
+                            deleteButton.className="deleteButton"
                             buttonAndItem.append(deleteButton)
                             rightSide.append(buttonAndItem)
 
                             let updateButton=document.createElement("BUTTON")
                              updateButton.type="submit"
+                             updateButton.className="submitButton"
                              updateButton.innerHTML="Update Name"
                              buttonAndItem.append(updateButton)
                              rightSide.append(buttonAndItem)

@@ -139,17 +139,16 @@
      }
       
       .btn {
+
           width:55px;
           height: 200x;
       }
      
-      input {
-          position:relative;
-          width: 100px;
-      }
+ 
 
-      
       input{
+            position:relative;
+          width: 100px;
         margin-left:30px;
         width: 100%;
         padding: 15px;
@@ -179,6 +178,29 @@
           float:right;
         }
 
+      #createName{
+            position: absolute;
+            margin-top:100px;
+            bottom:0;
+            left:0;
+            margin-left:120px;
+            font-family: 'Amatic SC', cursive;
+            border-style: solid;
+            border-color: #5b2337;
+            border-width: 2px;
+            font-size:30px;
+            font-weight:3px;
+            color:#5b2337;
+            text-align: center;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+            padding-top:18px;
+            width: 180px;
+            height: 80px;
+        
+         } 
+
      span {
          position: absolute;
         bottom:0;
@@ -194,6 +216,8 @@
          
          
      }
+
+   
       #side-card {
         position: relative;
         float:right;
@@ -257,6 +281,7 @@
         
        
      .button-and-card {
+        position:relative;
         border: #2e161d;
         font-family: 'Dancing Script', cursive;
         border-width: 4px;
@@ -267,7 +292,9 @@
          background: white;
      }
 
-   
+    h5{
+        position:relative;
+    }
 
      .categ-name {
         font-family: 'Nanum Pen Script', cursive;
@@ -286,38 +313,45 @@
         font-size: 20px; 
         color:#ab4f01;
         margin-top: -15px;
+        padding-bottom:20px;
      }
-     button {
-        position: relative;
+     
+
+       .deleteButton{
+        position:absolute;
+        bottom: 0;
+        right: 0;
         width: auto;
         height: auto;
-        font-family: 'Dancing Script', cursive;
-        color: #2e161d;;
-        background: white;
-        font-size:15px;
-        width:auto;
-        border-radius: 4px;
-        float: left;
-       
+       }
+
+       .submitButton{
+        position:absolute;
+        margin-top:15px;    
+        bottom: 0;
+        left:0;
+        width: auto;
+        height: auto;
        }
 
         button.btn {
-            margin-left:30px;
-            align-items: center;
+          
+            margin-top:30px;
+            font-family: 'Amatic SC', cursive;
             position: relative;
             border-style: solid;
             border-color: #5b2337;
             border-width: 2px;
-            font-family: 'Dancing Script', cursive;
+             font-size:30px;
+             font-weight:3px;
             color:#5b2337;
-            padding: 40px;
             text-align: center;
             align-items: center;
-            padding: 16px 20px;
+            padding: 16px 15px;
             width: auto;
             height:auto;
-            margin-bottom:10px;
-            font-size:20px;
+          
+            float:left;
       
       }
         h3{
@@ -357,3 +391,11 @@
            height:auto;
        }
       
+       select {
+    
+        position: absolute;
+        left: 40;
+
+       }
+
+    
