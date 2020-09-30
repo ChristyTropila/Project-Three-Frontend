@@ -20,7 +20,7 @@ let globalNav=undefined
 let itemId={}
 let globalCollectionId={}
 let currentUser={}
-
+let userCollections=[]
 // let loginPopup=document.getElementsByClassName('login-form-popup')
 // let signupPopup=document.getElementsByClassName('signup-form-popup')
 // let loginForm=document.getElementById('login-form')
@@ -78,7 +78,6 @@ let currentUser={}
               startMainPage()
             }
         })
-     
         
      })
  }
@@ -86,32 +85,34 @@ let currentUser={}
 
 
 
-
+// when called, signup disappears and main page is rendered
  function startMainPage(){
     mainContainer.innerHTML=""
      body.className="main"
     mainContainer.id="main-container"
     //this will hide the collection board when the user first enters page
-let checkToSeeIfCollectionExist=()=>{
+    let checkToSeeIfCollectionExist=()=>{
     fetch('http://localhost:5000/collection_boards')
     .then(resp=> resp.json())
     .then(collectionBoards => {
-           console.log(collectionBoards)
         if (collectionBoards.length===0) {
             rightSide.style.display="none"
         }else{
            rightSide.style.display="block"
         }
 
+        displayCollection(collectionBoards)
     })
+
+}    
+checkToSeeIfCollectionExist()
 }
 
-
    
-//create li for nav bar
-//append to container
-//create click event
-    fetch('http://localhost:5000/categories')
+
+//fetches the categories
+let displayCollection=()=> {
+     fetch('http://localhost:5000/categories')
     .then(resp => resp.json())
     .then(categoryArray => {
         
@@ -135,25 +136,24 @@ let checkToSeeIfCollectionExist=()=>{
         navBarSection(navBarUl)
         })
 
-    //create category elements and append
+    //display categories in nav bar
     let renderCategoryList= (cat) => {
-    
         navButton=document.createElement('li')
         navButton.innerText=cat.name
         navBarUl.append(navButton)
         navBarSection.append(navBarUl)
         globalNav=navButton
         navBarSection.append(navBarUl)
-   
-     navButton.addEventListener("click",(evt) => {
+        navButton.addEventListener("click",(evt) => {
          mainCategory(cat)
          
          })
      }
-
+    }
    
-     //display items in main container
+ //display items in main container
  let mainCategory=(category) =>{
+  
         mainContainer.innerHTML=""
         title=document.createElement("h2")
             category.items.forEach(item => {
@@ -192,18 +192,99 @@ let checkToSeeIfCollectionExist=()=>{
                     button.innerText="Pin This Item!"
                     cardDiv.append(button)
                     cardDiv.addEventListener("click", (e) =>{
-                    renderForm(item)
+                       seeIfCollectionIsEmpty(item)
+               
              })
+             
           })
+     }
+
+        //helper method to check if the user has any existing collections
+        //fetch users
+        //check to see if they have any collection boards
+        //if they do create a form that that has a select options with each collection board
+
+        let checkForExistingCollection=() => {
+            fetch(`http://localhost:5000/users/${currentUser.id}`)
+            .then(resp => resp.json())
+            .then(userArray => {
+               userArray.collection_boards.forEach((board)=> {
+                 userCollections.push(board)
+             let unique =userCollections.filter(function(item, pos){
+                return userCollections.indexOf(item)===pos;
+              } )
+                return unique
+                  
+               })
+    
+        })
+      
+    }
+
+    let seeIfCollectionIsEmpty=(item)=>{
+        if(userCollections.length===0){
+            renderForm(item)
+        }else{
+          renderSelectForm(item)
+        }
+    }
+
+
+    let renderSelectForm=(item) =>{
+      //  itemId=item.id
+        mainContainer.innerHTML=""
+        let form=document.createElement('form')
+        form.className="form-container"
+
+        let heading=document.createElement('h3')
+        heading.innerText="Choose A Collection"
+        let submitButton=document.createElement('BUTTON')           
+        submitButton.className="btn"
+        submitButton.type="submit"
+       submitButton.innerText="Create!"
+
+        let newNameBtn=document.createElement('SPAN')
+     
+        newNameBtn.innerText="Create New Name!"
+
+       let formSelect=document.createElement('SELECT')
+    
+
+       for(let i=0; i<userCollections.length; i++){
+           console.log(userCollections[i]["name"])
+           let options=document.createElement('option')
+      options.setAttribute("value",userCollections[i]["name"])
+      value=document.createTextNode(userCollections[i]["name"])
+      options.append(value)
+        formSelect.insertBefore(options, formSelect.lastChild)
+       
+       }
+
+       form.append( heading, formSelect, submitButton,newNameBtn)
+       mainContainer.append(form)
+
+       newNameBtn.addEventListener("click", (evt) => {
+        itemId=item.id
+   
+        mainContainer.innerHTML=""
+       
+           renderForm(item)
+
+            })
+        }
+
+    
 
 
  //form to create a new collection_board
      let renderForm=(item)=> {
+       mainContainer.innerHTML=""
+    
+      itemid=item
          itemId=item.id
          mainContainer.innerHTML=""
-
          let form=document.createElement('form')
-          form.className="form-container"
+         form.className="form-container"
 
          let heading=document.createElement('h3')
          heading.innerText="Create New Collection"
@@ -211,18 +292,22 @@ let checkToSeeIfCollectionExist=()=>{
           let inputField=document.createElement('input')
           inputField.placeholder="Name Your Collection"
           inputField.type="text"
+
   
          let submitButton=document.createElement('BUTTON')           
-        submitButton.className="btn"
+         submitButton.className="btn"
           submitButton.type="submit"
          submitButton.innerText="Create!"
 
          form.append(heading, inputField, submitButton)
           mainContainer.append(form)
+     
               
           //create collection board form
          form.addEventListener("submit", (evt) => {
+            
                  evt.preventDefault()
+
                  let name=document.querySelector('input').value
                 
                  fetch('http://localhost:5000/collection_boards', {
@@ -239,12 +324,15 @@ let checkToSeeIfCollectionExist=()=>{
                      })
                      .then(resp => resp.json())
                      .then(collection => {
-                      let sideCard=document.createElement('div')
-                      sideCard.id="side-bar"
-                      sideCard.className="container"
-                      let buttonAndItem=document.createElement('div')
-                      buttonAndItem.className="button-and-card"
-       
+
+                     if(collection.id){
+                        userCollections.push(collection)
+                        let sideCard=document.createElement('div')
+                        sideCard.id="side-bar"
+                        sideCard.className="container"
+                        let buttonAndItem=document.createElement('div')
+                        buttonAndItem.className="button-and-card"
+        
                     
                          mainCategory(mainObj[0])
                          let sideLabel=document.createElement('h2')
@@ -290,6 +378,7 @@ let checkToSeeIfCollectionExist=()=>{
                                 buttonAndItem.remove()
                             
                            })
+
                     
 //update collection name form 
     updateButton.addEventListener("click", (evt) => {
@@ -342,12 +431,17 @@ let checkToSeeIfCollectionExist=()=>{
             })
           })
                         
-     })
-                     
- })
+     }
+    })
 
-}
-}
+})
+                     
+// }else{
+    //renderSelectForm(item)
+
+
+// }
+     }
 
           //helper method to get item_id
             let renderItemId=(collection)=> {
@@ -356,10 +450,9 @@ let checkToSeeIfCollectionExist=()=>{
                 })
             }
 
-            
- checkToSeeIfCollectionExist()
+ 
                 
-}    
+    
 
       
    
