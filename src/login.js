@@ -24,7 +24,8 @@ let collectionFormLogin=()=>{
       console.log(collBoards)
       console.log(userCollections)
       collBoards[0].forEach((board)=> {
-    
+     
+       console.log(board)
     
         let sideCard=document.createElement('div')
             sideCard.id="side-bar"
@@ -69,13 +70,16 @@ getCard.className="card-2"
      
              let delayed=()=>{
                 for(let i=0; i<giantItemsArray.length; i++){
+                    if(giantItemsArray[i]["collection_board"]["id"]===board.id){
+
+                        let categName=document.createElement('h5')
+                        categName.className="categ-name"
+                        categName.innerHTML=giantItemsArray[i]["name"]
+                        buttonAndItem.append(categName)
+                        console.log("hello")
+                       rightSide.append(buttonAndItem)
+                    }
                     
-                    let categName=document.createElement('h5')
-                     categName.className="categ-name"
-                     categName.innerHTML=giantItemsArray[i]
-                     buttonAndItem.append(categName)
-                     console.log("hello")
-                    rightSide.append(buttonAndItem)
              }
             }
 
@@ -84,7 +88,7 @@ getCard.className="card-2"
 
          
       })
-
+ console.log(giantItemsArray)
 
 let buttonsDelay=()=>{
 
@@ -186,8 +190,8 @@ let findItemsInCollectionBoard=(id)=> {
     fetch(`http://localhost:5000/collection_boards/${id}`)
     .then(resp=>resp.json())
     .then((items)=> {
-  
-    giantItemsArray.push(items.items[0]["name"])
+     
+    giantItemsArray.push(items.items[0])
     return giantItemsArray
 
     })
