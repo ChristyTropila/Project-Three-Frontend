@@ -96,6 +96,10 @@
         height: 190px;
         position:relative;
     }
+
+    #right-side-temp{
+        display:none
+    }
     
 
     .card {

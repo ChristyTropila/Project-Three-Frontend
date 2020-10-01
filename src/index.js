@@ -12,7 +12,6 @@ let leftCard=document.createElement('div')
 leftCard.className="card-info"
 
 let rightSide=document.getElementById('side-bar')
-rightSide.style.display="none";
 
 
 let mainObj={}
@@ -25,6 +24,8 @@ let userCollections=[]
 
 
  let signUPAction=() => {
+    rightSide.style.display="none"
+
  mainContainer.innerHTML=""
 navContainer.style.visibility="false"
  mainContainer.id="main-container-3"
@@ -85,8 +86,9 @@ navContainer.style.visibility="false"
    signUpPopup.append(signupForm)
    mainContainer.append(signUpPopup)
 
-
+ 
    signupForm.addEventListener("submit", (e) => {
+       console.log('e')
         e.preventDefault()
        let getName=e.target.name.value
        let userName=e.target.username.value
@@ -105,6 +107,7 @@ navContainer.style.visibility="false"
         .then(response => {
            currentUser=response  
             if(response.id){
+                mainContainer.id="main-container"
               startMainPage()
             }
         })
@@ -114,46 +117,50 @@ navContainer.style.visibility="false"
 
      logInForm.addEventListener("submit", (evt) => {
          evt.preventDefault()
-      
+        console.log("click")
+    
          let userName=evt.target.username.value
          fetch(`http://localhost:5000/login/${userName}`)
          .then(resp => resp.json())
          .then(foundUser => {
              currentUser=foundUser
-             if(foundUser.id){
-                 startMainPage()
-             }
-         })
-        //  if(userName){
-        //      currenUser=
-        //     startMainPage()
-        //  }
+          if(foundUser.username===userName){
+              console.log(foundUser)
+              console.log(currentUser)
+             collectionFormLogin()
+          }
     
  })
-}
+})
+ }
 signUPAction()
+console.log(currentUser)
+
+
 
 
 // when called, signup disappears and main page is rendered
  function startMainPage(){
+   mainContainer.innerHTML=""
   
-    mainContainer.innerHTML=""
-    body.className="main"
+   if(!userCollections.length===0){
+       mainContainer.id="main-container-2"
+   }else{
     mainContainer.id="main-container"
-
+   }
     //this will hide the collection board when the user first enters page
      
     fetch(`http://localhost:5000/users/${currentUser.id}`)
     .then(resp=> resp.json())
     .then(user => {
-        console.log(user.collection_boards)
+        currentUser=user
         if (user.collection_boards.length===0) {
             rightSide.style.display="none"
         }else{
-           rightSide.style.display="block"
+           
         }
     
-        displayCollection(user.collection_boards)
+        displayCollection(currentUser.collection_boards)
     })
 
 }    
@@ -441,9 +448,7 @@ let displayCollection=()=> {
 
                      if(collection.id){
                         userCollections.push(collection)
-                        let sideCard=document.createElement('div')
-                        sideCard.id="side-bar"
-                        sideCard.className="container"
+                     
                         let buttonAndItem=document.createElement('div')
                         buttonAndItem.className="button-and-card"
         
@@ -462,6 +467,7 @@ let displayCollection=()=> {
                          rightSide.append(buttonAndItem)
                       
                          item.collection_board_id=collection.id
+
                          collection.items.forEach(item => {
                             let categName=document.createElement('h5')
                             categName.className="categ-name"
@@ -470,7 +476,7 @@ let displayCollection=()=> {
                             buttonAndItem.append(categName)
                             rightSide.append(buttonAndItem)
              
-
+                            console.log(rightSide)
                             let deleteButton=document.createElement('BUTTON')
                             deleteButton.type="submit"
                             deleteButton.innerText="Remove"
