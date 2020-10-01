@@ -19,12 +19,12 @@ let collectionFormLogin=()=>{
           }             
       })
 
-      collBoard=userCollections
+      userCollections.push(collBoards)
 
       console.log(collBoards)
       console.log(userCollections)
-      collBoards.forEach((board)=> {
-       console.log(board)
+      collBoards[0].forEach((board)=> {
+    
     
         let sideCard=document.createElement('div')
             sideCard.id="side-bar"
