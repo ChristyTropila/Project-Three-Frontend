@@ -279,16 +279,7 @@ let displayCollection=()=> {
             .then(resp => resp.json())
             .then(userArray => {
                 userCollections=userArray.collection_boards
-               userArray.collection_boards.forEach((board)=> {
-                 userCollections.push(board)
-             let unique =userCollections.filter(function(item, pos){
-                return userCollections.indexOf(item)===pos;
-              } )
-              console.log(unique)
-                userCollections=unique
-                return unique
-                  
-               })
+         
             console.log(userCollections)
         })  
     }
@@ -322,13 +313,13 @@ let displayCollection=()=> {
         newNameBtn.id="createName"
 
        let formSelect=document.createElement('SELECT')
-    
-
+   
        for(let i=0; i<userCollections.length; i++){
          let options=document.createElement('option')
           options.setAttribute("value",userCollections[i]["name"])
           value=document.createTextNode(userCollections[i]["name"])
           options.append(value)
+          globalCollectionId=userCollections[i]["id"]
           formSelect.insertBefore(options, formSelect.lastChild)
        }
 
@@ -349,7 +340,7 @@ let displayCollection=()=> {
 
                 let selectElement=document.querySelector('select')
                 let name= selectElement.options[selectElement.selectedIndex].value
-
+                
                 fetch('http://localhost:5000/collection_boards', {
                     method:'POST',
                     headers: {
@@ -357,6 +348,7 @@ let displayCollection=()=> {
                        Accept: 'application/json'
                     },
                     body: JSON.stringify({
+                        id: globalCollectionId,
                         name: name,
                         item_id: itemId,
                         user_id: currentUser.id

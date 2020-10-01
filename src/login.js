@@ -71,7 +71,7 @@ getCard.className="card-2"
              let delayed=()=>{
                 for(let i=0; i<giantItemsArray.length; i++){
                     if(giantItemsArray[i]["collection_board"]["id"]===board.id){
-
+                            
                         let categName=document.createElement('h5')
                         categName.className="categ-name"
                         categName.innerHTML=giantItemsArray[i]["name"]
@@ -79,11 +79,11 @@ getCard.className="card-2"
                         console.log("hello")
                        rightSide.append(buttonAndItem)
                     }
-                    
+                 //   i++; 
              }
             }
 
-            setTimeout(delayed,100)
+            setTimeout(delayed,200)
       
 
          
@@ -190,8 +190,9 @@ let findItemsInCollectionBoard=(id)=> {
     fetch(`http://localhost:5000/collection_boards/${id}`)
     .then(resp=>resp.json())
     .then((items)=> {
-     
+   
     giantItemsArray.push(items.items[0])
+  
     return giantItemsArray
 
     })
