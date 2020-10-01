@@ -6,6 +6,7 @@ let navBarUl=document.getElementById('nav-ul')
 let mainContainer=document.getElementById('main-container')
 
 let body=document.querySelector('body')
+body.className="main"
 let mainHeading=document.createElement('h2')
 mainHeading.className="side-label"
 let leftCard=document.createElement('div')
@@ -25,7 +26,7 @@ let userCollections=[]
 
  let signUPAction=() => {
     rightSide.style.display="none"
-
+  body.className="login"
  mainContainer.innerHTML=""
 navContainer.style.visibility="false"
  mainContainer.id="main-container-3"
@@ -88,8 +89,9 @@ navContainer.style.visibility="false"
 
  
    signupForm.addEventListener("submit", (e) => {
-       console.log('e')
+    
         e.preventDefault()
+        body.className="main"
        let getName=e.target.name.value
        let userName=e.target.username.value
         fetch('http://localhost:5000/users', {

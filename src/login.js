@@ -75,7 +75,8 @@ getCard.className="card-2"
             setTimeout(delayed,100)
       
 
-
+         
+      })
 
 
 let buttonsDelay=()=>{
@@ -161,7 +162,7 @@ sideLabel.innerText=collection.name
 })
 }
 
-    })
+
       
 
 setTimeout(buttonsDelay,300)
@@ -169,6 +170,7 @@ setTimeout(buttonsDelay,300)
 
     rightSide.style.display="block"
     mainContainer.id='main-container-2'
+    body.className="main"
     startMainPage()
 }
 
