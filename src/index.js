@@ -216,8 +216,6 @@ let displayCollection=()=> {
          mainCategory(cat)
          
          })
-    
-
      }
     }
    
@@ -384,14 +382,7 @@ let displayCollection=()=> {
             })
           
         })
-         
-
-        }
-
-
-
-
-
+  }
 
 
  //form to create a new collection_board
@@ -422,85 +413,85 @@ let displayCollection=()=> {
      
               
           //create collection board form
-         form.addEventListener("submit", (evt) => {
-            
-                 evt.preventDefault()
+ form.addEventListener("submit", (evt) => {
 
-                 let name=document.querySelector('input').value
-                
-                 fetch('http://localhost:5000/collection_boards', {
-                     method:'POST',
-                     headers: {
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json'
-                     },
-                     body: JSON.stringify({
-                         name: name,
-                         item_id: itemId,
-                         user_id: currentUser.id
-                     })
-                     })
-                     .then(resp => resp.json())
-                     .then(collection => {
+    evt.preventDefault()
 
-                     if(collection.id){
-                        userCollections.push(collection)
-                     
-                        let buttonAndItem=document.createElement('div')
-                        buttonAndItem.className="button-and-card"
+    let name=document.querySelector('input').value
+
+    fetch('http://localhost:5000/collection_boards', {
+        method:'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            item_id: itemId,
+            user_id: currentUser.id
+        })
+        })
+        .then(resp => resp.json())
+        .then(collection => {
+
+        if(collection.id){
+        userCollections.push(collection)
         
-                        let sweater3=document.createElement('img')
-                        sweater3.src="styles/images/sweater3.png"
-                        sweater3.id="sweater3"
-                        buttonAndItem.append(sweater3)
-                        rightSide.append(buttonAndItem)
-                    
-                         mainCategory(mainObj[0])
-                         let sideLabel=document.createElement('h2')
-                         sideLabel.className="categ-name"
-                        
-                         sideLabel.innerText=collection.name
-                         buttonAndItem.append(sideLabel)
-                         rightSide.append(buttonAndItem)
-                      
-                         item.collection_board_id=collection.id
+        let buttonAndItem=document.createElement('div')
+        buttonAndItem.className="button-and-card"
 
-                         collection.items.forEach(item => {
-                            let categName=document.createElement('h5')
-                            categName.className="categ-name"
-                         
-                            categName.innerText=item.name
-                            buttonAndItem.append(categName)
-                            rightSide.append(buttonAndItem)
-             
-                            console.log(rightSide)
-                            let deleteButton=document.createElement('BUTTON')
-                            deleteButton.type="submit"
-                            deleteButton.innerText="Remove"
-                            deleteButton.className="deleteButton"
-                            buttonAndItem.append(deleteButton)
-                            rightSide.append(buttonAndItem)
+        let sweater3=document.createElement('img')
+        sweater3.src="styles/images/sweater3.png"
+        sweater3.id="sweater3"
+        buttonAndItem.append(sweater3)
+        rightSide.append(buttonAndItem)
+    
+            mainCategory(mainObj[0])
+            let sideLabel=document.createElement('h2')
+            sideLabel.className="categ-name"
+        
+            sideLabel.innerText=collection.name
+            buttonAndItem.append(sideLabel)
+            rightSide.append(buttonAndItem)
+        
+            item.collection_board_id=collection.id
 
-                            let updateButton=document.createElement("BUTTON")
-                             updateButton.type="submit"
-                             updateButton.className="submitButton"
-                             updateButton.innerHTML="Update Name"
-                             buttonAndItem.append(updateButton)
-                             rightSide.append(buttonAndItem)
+            collection.items.forEach(item => {
+            let categName=document.createElement('h5')
+            categName.className="categ-name"
+            
+            categName.innerText=item.name
+            buttonAndItem.append(categName)
+            rightSide.append(buttonAndItem)
+
+            console.log(rightSide)
+            let deleteButton=document.createElement('BUTTON')
+            deleteButton.type="submit"
+            deleteButton.innerText="Remove"
+            deleteButton.className="deleteButton"
+            buttonAndItem.append(deleteButton)
+            rightSide.append(buttonAndItem)
+
+            let updateButton=document.createElement("BUTTON")
+                updateButton.type="submit"
+                updateButton.className="submitButton"
+                updateButton.innerHTML="Update Name"
+                buttonAndItem.append(updateButton)
+                rightSide.append(buttonAndItem)
 
 
-                             let getCard=document.getElementsByClassName('card')
-                              mainContainer.id="main-container-2"
-                              rightSide.style.display="block"
-                              getCard.className="card-2"
-                             console.log(userCollections)
-                               //delete collection baord
-                            deleteButton.addEventListener('click', (evt) => {
-                                 fetch(`http://localhost:5000/collection_boards/${collection.id}`, {
-                                    method: 'DELETE'
-                                })
-                                buttonAndItem.remove()
-                                userCollections.pop(collection)
+                let getCard=document.getElementsByClassName('card')
+                mainContainer.id="main-container-2"
+                rightSide.style.display="block"
+                getCard.className="card-2"
+                console.log(userCollections)
+                //delete collection baord
+            deleteButton.addEventListener('click', (evt) => {
+                    fetch(`http://localhost:5000/collection_boards/${collection.id}`, {
+                    method: 'DELETE'
+                })
+                buttonAndItem.remove()
+                userCollections.pop(collection)
                             
                            })
 
@@ -580,14 +571,4 @@ let displayCollection=()=> {
                     item.id
                 })
             }
-
- 
-                
-    
-
-      
-   
-
-  
- 
 

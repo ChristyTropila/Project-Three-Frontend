@@ -79,7 +79,7 @@ getCard.className="card-2"
                         console.log("hello")
                        rightSide.append(buttonAndItem)
                     }
-                 //   i++; 
+               
              }
             }
 
