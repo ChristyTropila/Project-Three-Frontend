@@ -278,15 +278,18 @@ let displayCollection=()=> {
             fetch(`http://localhost:5000/users/${currentUser.id}`)
             .then(resp => resp.json())
             .then(userArray => {
+                userCollections=userArray.collection_boards
                userArray.collection_boards.forEach((board)=> {
                  userCollections.push(board)
              let unique =userCollections.filter(function(item, pos){
                 return userCollections.indexOf(item)===pos;
               } )
-
+              console.log(unique)
+                userCollections=unique
                 return unique
                   
                })
+            console.log(userCollections)
         })  
     }
 
@@ -403,7 +406,7 @@ let displayCollection=()=> {
      let renderForm=(item)=> {
        mainContainer.innerHTML=""
     
-      itemid=item
+
          itemId=item.id
          mainContainer.innerHTML=""
          let form=document.createElement('form')
@@ -498,7 +501,7 @@ let displayCollection=()=> {
                               mainContainer.id="main-container-2"
                               rightSide.style.display="block"
                               getCard.className="card-2"
-
+                             console.log(userCollections)
                                //delete collection baord
                             deleteButton.addEventListener('click', (evt) => {
                                  fetch(`http://localhost:5000/collection_boards/${collection.id}`, {

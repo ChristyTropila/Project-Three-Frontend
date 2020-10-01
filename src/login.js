@@ -7,18 +7,25 @@ let collectionFormLogin=()=>{
     fetch('http://localhost:5000/users')
     .then(resp=>resp.json())
     .then(userArray => {
+  console.log(userArray)
 
-    let collBoards;
+    let collBoards=[]
       userArray.forEach((user) => {
           if(user.id===currentUser.id){
-           collBoards=user.collection_boards
-          }
+            collBoards.push(user.collection_boards)
+            currentUser.id=user.id
+          
+      
+          }             
       })
 
+      collBoard=userCollections
+
+      console.log(collBoards)
+      console.log(userCollections)
       collBoards.forEach((board)=> {
-          console.log(board)
-      
-          userCollections.push(board)
+       console.log(board)
+    
         let sideCard=document.createElement('div')
             sideCard.id="side-bar"
             sideCard.className="container"
